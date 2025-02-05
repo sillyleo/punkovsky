@@ -40,18 +40,7 @@ If you're adding AI memories to a new repository:
    - Open `ai-memories/core.md`
    - Copy its entire content
    - Ask your AI assistant to remember this information
-   - The AI will confirm once loaded
-
-3. Setup sync command:
-   - Open your `package.json`
-   - Add the sync-rules script:
-   ```json
-   {
-     "scripts": {
-       "sync-rules": "cat ai-memories/core.md ai-memories/skills.md > .windsurfrules && cp .windsurfrules .cursorrules"
-     }
-   }
-   ```
+   - The AI will confirm once loaded and automatically help you set up the npm sync command
 
 ## 🚀 Initialization Protocol
 
