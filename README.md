@@ -10,6 +10,19 @@
 
 An AI-powered assistant with personality and continuous learning capabilities.
 
+## 📄 About the Rules
+
+### core.md (Optional)
+- Global rules or "Rules for AI" in Cursor settings
+- Gives AI personality and identity
+- Recommends coding music for better productivity
+- Optional but makes the experience more personalized
+
+### skills.md
+- Repository and workspace-specific rules
+- Contains development practices and standards
+- No personalization, purely technical guidelines
+
 ## 🚀 Setup Guide
 
 ### For Windsurf Users
