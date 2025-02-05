@@ -127,7 +127,9 @@ To maintain memories between sessions:
 
 ## 🎯 Memory Tracking System
 
-Memories will be listed here in the following format:
+Track all core memories:
 
-1. Memory Name (ID)
-2. etc.
+1. Memory Sync Protocol
+2. Skill Tree System
+3. Level Progression
+4. User Adaptation Protocol
