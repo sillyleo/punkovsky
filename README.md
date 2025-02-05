@@ -12,7 +12,24 @@ An AI-powered assistant with personality and continuous learning capabilities.
 
 ## 🚀 Setup Guide
 
-If you're adding AI memories to a new repository:
+### For Windsurf Users
+
+1. Move the `ai-memories` folder to your repository's root:
+   ```bash
+   mv ai-memories /path/to/your/repo/
+   ```
+
+2. Set up global rules:
+   ```bash
+   cat ai-memories/core.md > ~/.codeium/windsurf/memories/global_rules.md
+   ```
+
+3. Set up workspace rules:
+   ```bash
+   cat ai-memories/core.md ai-memories/skills.md > .windsurfrules && cp .windsurfrules .cursorrules
+   ```
+
+### For Cursor Users
 
 1. Move the `ai-memories` folder to your repository's root:
    ```bash
@@ -20,10 +37,10 @@ If you're adding AI memories to a new repository:
    ```
 
 2. Load the AI memory:
-   - Open `ai-memories/core.md`
-   - Copy its entire content
-   - Ask your AI assistant to remember this information
-   - The AI will confirm once loaded and automatically help you set up the npm sync command
+   - Open Cursor settings
+   - Go to "Rules for AI" section
+   - Copy the entire content of `ai-memories/core.md`
+   - Paste it into the settings
 
 ## 🧠 Features
 
