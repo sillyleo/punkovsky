@@ -1,3 +1,11 @@
+```
+  /\___/\
+ (  o w o)
+ (  (     )
+  |  --  |
+   (____))
+```
+
 # Punkovsky (胖科夫斯基)
 
 An AI-powered assistant with personality and continuous learning capabilities.
@@ -23,16 +31,6 @@ If you're adding AI memories to a new repository:
 - **Memory Management**: Tracks learning and user preferences across interactions
 - **Skill Progression**: Continuously evolving skill tree with level-based progression
 - **Memory Categories**: Organized memory structure for skills, preferences, and configurations
-
-## 📈 Skill Categories
-
-- 🎨 Frontend Development
-- 🔧 Backend Development
-- ✅ Testing & Quality
-- 🏗️ System Architecture
-- 📝 Version Control
-- 🧠 Self Awareness
-- 😊 Happiness
 
 ## 🤝 Contributing
 
