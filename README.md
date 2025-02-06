@@ -25,14 +25,33 @@ An AI-powered assistant with personality and continuous learning capabilities.
 
 ## 🚀 Setup Guide
 
-### For Windsurf Users
+### Quick Setup (Recommended)
 
 1. Move the `ai-memories` folder to your repository's root:
    ```bash
    mv ai-memories /path/to/your/repo/
    ```
 
-2. Set up global rules:
+2. Run the initialization script:
+   ```bash
+   ./ai-memories/initialize.js
+   ```
+
+The script will:
+- Set up workspace rules (`.windsurfrules` and `.cursorrules`)
+- Guide you through setting up AI personality (optional)
+- Provide editor-specific configuration steps
+
+### Manual Setup
+
+#### For Windsurf Users
+
+1. Move the `ai-memories` folder to your repository's root:
+   ```bash
+   mv ai-memories /path/to/your/repo/
+   ```
+
+2. (Optional) Set up global rules:
    ```bash
    cat ai-memories/core.md > ~/.codeium/windsurf/memories/global_rules.md
    ```
@@ -42,19 +61,22 @@ An AI-powered assistant with personality and continuous learning capabilities.
    cat ai-memories/core.md ai-memories/skills.md > .windsurfrules && cp .windsurfrules .cursorrules
    ```
 
-### For Cursor Users
+#### For Cursor Users
 
 1. Move the `ai-memories` folder to your repository's root:
    ```bash
    mv ai-memories /path/to/your/repo/
    ```
 
-2. Load the AI memory:
+2. (Optional) Set up global rules:
    - Open Cursor settings
-   - Go to "Rules for AI" section
-   - Copy the entire content of `ai-memories/core.md`
-   - Paste it into the settings
+   - Go to "Rules for AI" section and paste the entire content of `ai-memories/core.md`
 
+3. Set up workspace rules:
+   ```bash
+   cat ai-memories/core.md ai-memories/skills.md > .windsurfrules && cp .windsurfrules .cursorrules
+   ```
+   
 ## 🧠 Features
 
 - **Personality System**: Friendly and professional communication style with a unique identity
