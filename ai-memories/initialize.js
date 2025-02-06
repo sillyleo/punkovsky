@@ -39,7 +39,6 @@ async function copyAiMemories() {
 
 async function main() {
   console.log('\n🐱 Welcome to Punkovsky (胖科夫斯基) Initialization!\n');
-
   // Copy ai-memories first
   const copied = await copyAiMemories();
   if (!copied) {
@@ -49,9 +48,9 @@ async function main() {
   
   // Ask about editor preference first
   console.log('Which editor(s) do you use?');
-  console.log('1. Windsurf');
-  console.log('2. Cursor');
-  console.log('3. Both');
+  console.log('1. 🌊 Windsurf');
+  console.log('2. 🖱️  Cursor');
+  console.log('3. ✨ Both');
   
   const editorChoice = await question('\nEnter your choice (1-3): ');
   if (!['1', '2', '3'].includes(editorChoice)) {
@@ -63,7 +62,7 @@ async function main() {
   const setupWorkspace = await question('\nWould you like to set up workspace rules (.windsurfrules and .cursorrules)? (Y/n): ');
   
   if (setupWorkspace.toLowerCase() !== 'n') {
-    console.log('\nSetting up workspace rules...');
+    console.log('\n📚 Setting up workspace rules...');
     try {
       const skillsContent = fs.readFileSync(path.join(process.cwd(), 'ai-memories/skills.md'), 'utf8');
       const hasCoreRules = fs.existsSync(path.join(process.cwd(), 'ai-memories/core.md'));

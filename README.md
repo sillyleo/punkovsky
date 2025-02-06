@@ -27,18 +27,17 @@ An AI-powered assistant with personality and continuous learning capabilities.
 
 ### Quick Setup (Recommended)
 
-1. Initialize with npx:
+1. Initialize with npx (recommended):
    ```bash
    npx punkfu
    ```
 
-   Or manually move the `ai-memories` folder to your repository's root:
+   Or manually:
    ```bash
+   # 1. Move the ai-memories folder
    mv ai-memories /path/to/your/repo/
-   ```
-
-2. Run the initialization script:
-   ```bash
+   
+   # 2. Run the initialization script
    ./ai-memories/initialize.js
    ```
 
