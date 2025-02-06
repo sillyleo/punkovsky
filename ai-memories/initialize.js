@@ -13,7 +13,15 @@ const rl = readline.createInterface({
 const question = (query) => new Promise((resolve) => rl.question(query, resolve));
 
 async function copyAiMemories() {
+  // Get the actual source directory (where the package is installed)
+  const sourceDir = path.dirname(process.argv[1]);
   const targetDir = path.join(process.cwd(), 'ai-memories');
+  
+  // Check if we're in the package directory to avoid self-copying
+  if (sourceDir === process.cwd()) {
+    console.log('⚠️  Cannot initialize in the package directory');
+    return false;
+  }
   
   if (fs.existsSync(targetDir)) {
     const handleExisting = await question('📁 ai-memories directory already exists. What would you like to do?\n1. Replace (delete existing and create new)\n2. Merge (keep existing and add missing files)\n3. Cancel\nEnter your choice (1-3): ');
@@ -42,7 +50,7 @@ async function copyAiMemories() {
     let filesCopied = false;
     
     for (const file of files) {
-      const sourceFile = path.join(__dirname, file);
+      const sourceFile = path.join(sourceDir, file);
       const targetFile = path.join(targetDir, file);
       
       if (!fs.existsSync(targetFile) && fs.existsSync(sourceFile)) {
