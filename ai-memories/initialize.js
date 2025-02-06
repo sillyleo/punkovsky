@@ -14,8 +14,10 @@ const question = (query) => new Promise((resolve) => rl.question(query, resolve)
 
 async function copyAiMemories() {
   // Get the actual source directory (where the package is installed)
-  const sourceDir = path.dirname(process.argv[1]);
+  const sourceDir = __dirname;
   const targetDir = path.join(process.cwd(), 'ai-memories');
+  
+  console.log('🔍 Source directory:', sourceDir);
   
   // Check if we're in the package directory to avoid self-copying
   if (sourceDir === process.cwd()) {
