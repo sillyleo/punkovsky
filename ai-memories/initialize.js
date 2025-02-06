@@ -20,7 +20,7 @@ async function copyAiMemories() {
   // Check if we're in the package directory to avoid self-copying
   if (sourceDir === process.cwd()) {
     console.log('⚠️  Cannot initialize in the package directory');
-    return false;
+    return { success: false };
   }
   
   if (fs.existsSync(targetDir)) {
@@ -35,7 +35,7 @@ async function copyAiMemories() {
       console.log('🤝 Merging with existing ai-memories directory');
     } else {
       console.log('❌ Cancelled Punkovsky Initialization');
-      return false;
+      return { success: false };
     }
   } else {
     console.log('📁 Creating ai-memories directory...');
@@ -49,12 +49,20 @@ async function copyAiMemories() {
     const files = ['core.md', 'skills.md'];
     let filesCopied = false;
     
+    // Read source files first
+    const sourceContent = {};
     for (const file of files) {
       const sourceFile = path.join(sourceDir, file);
+      if (fs.existsSync(sourceFile)) {
+        sourceContent[file] = fs.readFileSync(sourceFile, 'utf8');
+      }
+    }
+    
+    // Copy files to target
+    for (const file of files) {
       const targetFile = path.join(targetDir, file);
-      
-      if (!fs.existsSync(targetFile) && fs.existsSync(sourceFile)) {
-        fs.copyFileSync(sourceFile, targetFile);
+      if (!fs.existsSync(targetFile) && sourceContent[file]) {
+        fs.writeFileSync(targetFile, sourceContent[file]);
         console.log(`✨ Created ${file}`);
         filesCopied = true;
       }
@@ -64,10 +72,17 @@ async function copyAiMemories() {
       console.log('ℹ️  All files already exist');
     }
     
-    return true;
+    // Return both success status and file contents
+    return { 
+      success: true,
+      content: {
+        skills: sourceContent['skills.md'] || '',
+        core: sourceContent['core.md'] || ''
+      }
+    };
   } catch (error) {
     console.error('❌ Error setting up ai-memories:', error.message);
-    return false;
+    return { success: false };
   }
 }
 
@@ -87,8 +102,8 @@ async function main() {
   }
 
   // Set up ai-memories after editor choice
-  const copied = await copyAiMemories();
-  if (!copied) {
+  const result = await copyAiMemories();
+  if (!result.success) {
     process.exit(1);
   }
   console.log('✅ Created ai-memories directory\n');
@@ -99,9 +114,8 @@ async function main() {
   if (setupWorkspace.toLowerCase() !== 'n') {
     console.log('\n📚 Setting up workspace rules...');
     try {
-      const skillsContent = fs.readFileSync(path.join(process.cwd(), 'ai-memories/skills.md'), 'utf8');
-      const hasCoreRules = fs.existsSync(path.join(process.cwd(), 'ai-memories/core.md'));
-      const coreContent = hasCoreRules ? fs.readFileSync(path.join(process.cwd(), 'ai-memories/core.md'), 'utf8') : '';
+      const { skills: skillsContent, core: coreContent } = result.content;
+      const hasCoreRules = !!coreContent;
       
       // For Windsurf: include both core and skills
       if (['1', '3'].includes(editorChoice)) {
