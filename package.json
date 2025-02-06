@@ -1,0 +1,27 @@
+{
+  "name": "punkfu",
+  "version": "1.0.0",
+  "description": "Punkovsky (胖科夫斯基) - AI assistant initialization tool",
+  "main": "ai-memories/initialize.js",
+  "bin": {
+    "punkfu": "./ai-memories/initialize.js"
+  },
+  "files": [
+    "ai-memories/initialize.js",
+    "ai-memories/core.md",
+    "ai-memories/skills.md"
+  ],
+  "keywords": [
+    "ai",
+    "assistant",
+    "initialization",
+    "windsurf",
+    "cursor"
+  ],
+  "author": "Leo Lin",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sillyleo/punkovsky.git"
+  }
+}

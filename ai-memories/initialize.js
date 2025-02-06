@@ -12,8 +12,40 @@ const rl = readline.createInterface({
 
 const question = (query) => new Promise((resolve) => rl.question(query, resolve));
 
+async function copyAiMemories() {
+  const targetDir = path.join(process.cwd(), 'ai-memories');
+  if (fs.existsSync(targetDir)) {
+    console.error('❌ ai-memories directory already exists');
+    return false;
+  }
+
+  try {
+    fs.mkdirSync(targetDir);
+    const files = ['core.md', 'skills.md'];
+    
+    for (const file of files) {
+      const sourceFile = path.join(__dirname, file);
+      const targetFile = path.join(targetDir, file);
+      if (fs.existsSync(sourceFile)) {
+        fs.copyFileSync(sourceFile, targetFile);
+      }
+    }
+    return true;
+  } catch (error) {
+    console.error('❌ Error copying ai-memories:', error.message);
+    return false;
+  }
+}
+
 async function main() {
   console.log('\n🐱 Welcome to Punkovsky (胖科夫斯基) Initialization!\n');
+
+  // Copy ai-memories first
+  const copied = await copyAiMemories();
+  if (!copied) {
+    process.exit(1);
+  }
+  console.log('✅ Created ai-memories directory\n');
   
   // Ask about editor preference first
   console.log('Which editor(s) do you use?');
@@ -33,9 +65,9 @@ async function main() {
   if (setupWorkspace.toLowerCase() !== 'n') {
     console.log('\nSetting up workspace rules...');
     try {
-      const skillsContent = fs.readFileSync(path.join(__dirname, 'skills.md'), 'utf8');
-      const hasCoreRules = fs.existsSync(path.join(__dirname, 'core.md'));
-      const coreContent = hasCoreRules ? fs.readFileSync(path.join(__dirname, 'core.md'), 'utf8') : '';
+      const skillsContent = fs.readFileSync(path.join(process.cwd(), 'ai-memories/skills.md'), 'utf8');
+      const hasCoreRules = fs.existsSync(path.join(process.cwd(), 'ai-memories/core.md'));
+      const coreContent = hasCoreRules ? fs.readFileSync(path.join(process.cwd(), 'ai-memories/core.md'), 'utf8') : '';
       
       // For Windsurf: include both core and skills
       if (['1', '3'].includes(editorChoice)) {
@@ -66,11 +98,10 @@ async function main() {
   const setupPersonality = await question('\nWould you like to set up AI personality (global rules)? (y/N): ');
   
   if (setupPersonality.toLowerCase() === 'y') {
-    
     try {
       if (['1', '3'].includes(editorChoice)) {
         // Windsurf setup
-        const coreContent = fs.readFileSync(path.join(__dirname, 'core.md'), 'utf8');
+        const coreContent = fs.readFileSync(path.join(process.cwd(), 'ai-memories/core.md'), 'utf8');
         const windsurfPath = path.join(os.homedir(), '.codeium/windsurf/memories');
         if (!fs.existsSync(windsurfPath)) {
           fs.mkdirSync(windsurfPath, { recursive: true });
@@ -84,7 +115,7 @@ async function main() {
         console.log('\nTo complete Cursor setup:');
         console.log('1. Open Cursor settings');
         console.log('2. Go to "Rules for AI" section');
-        console.log('3. Copy the content from:', path.join(__dirname, 'core.md'));
+        console.log('3. Copy the content from:', path.join(process.cwd(), 'ai-memories/core.md'));
         console.log('4. Paste it into the settings');
       }
     } catch (error) {
