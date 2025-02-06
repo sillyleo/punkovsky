@@ -14,25 +14,51 @@ const question = (query) => new Promise((resolve) => rl.question(query, resolve)
 
 async function copyAiMemories() {
   const targetDir = path.join(process.cwd(), 'ai-memories');
+  
   if (fs.existsSync(targetDir)) {
-    console.error('❌ ai-memories directory already exists');
-    return false;
+    const handleExisting = await question('📁 ai-memories directory already exists. What would you like to do?\n1. Replace (delete existing and create new)\n2. Merge (keep existing and add missing files)\n3. Cancel\nEnter your choice (1-3): ');
+    
+    if (handleExisting === '1') {
+      // Replace - delete existing directory
+      fs.rmSync(targetDir, { recursive: true, force: true });
+      console.log('🗑️  Removed existing ai-memories directory');
+    } else if (handleExisting === '2') {
+      // Merge - continue with existing directory
+      console.log('🤝 Merging with existing ai-memories directory');
+    } else {
+      console.log('❌ Cancelled Punkovsky Initialization');
+      return false;
+    }
+  } else {
+    console.log('📁 Creating ai-memories directory...');
   }
 
   try {
-    fs.mkdirSync(targetDir);
+    if (!fs.existsSync(targetDir)) {
+      fs.mkdirSync(targetDir);
+    }
+    
     const files = ['core.md', 'skills.md'];
+    let filesCopied = false;
     
     for (const file of files) {
       const sourceFile = path.join(__dirname, file);
       const targetFile = path.join(targetDir, file);
-      if (fs.existsSync(sourceFile)) {
+      
+      if (!fs.existsSync(targetFile) && fs.existsSync(sourceFile)) {
         fs.copyFileSync(sourceFile, targetFile);
+        console.log(`✨ Created ${file}`);
+        filesCopied = true;
       }
     }
+    
+    if (!filesCopied) {
+      console.log('ℹ️  All files already exist');
+    }
+    
     return true;
   } catch (error) {
-    console.error('❌ Error copying ai-memories:', error.message);
+    console.error('❌ Error setting up ai-memories:', error.message);
     return false;
   }
 }
