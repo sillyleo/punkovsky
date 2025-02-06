@@ -1,6 +1,6 @@
 {
   "name": "punkfu",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Punkovsky (胖科夫斯基) - AI assistant initialization tool",
   "main": "ai-memories/initialize.js",
   "bin": {

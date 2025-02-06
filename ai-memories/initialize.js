@@ -73,13 +73,7 @@ async function copyAiMemories() {
 
 async function main() {
   console.log('\n🐱 Welcome to Punkovsky (胖科夫斯基) Initialization!\n');
-  // Copy ai-memories first
-  const copied = await copyAiMemories();
-  if (!copied) {
-    process.exit(1);
-  }
-  console.log('✅ Created ai-memories directory\n');
-  
+
   // Ask about editor preference first
   console.log('Which editor(s) do you use?');
   console.log('1. 🌊 Windsurf');
@@ -91,6 +85,13 @@ async function main() {
     console.error('❌ Invalid choice. Please run the script again.');
     process.exit(1);
   }
+
+  // Set up ai-memories after editor choice
+  const copied = await copyAiMemories();
+  if (!copied) {
+    process.exit(1);
+  }
+  console.log('✅ Created ai-memories directory\n');
 
   // Ask about workspace rules
   const setupWorkspace = await question('\nWould you like to set up workspace rules (.windsurfrules and .cursorrules)? (Y/n): ');
